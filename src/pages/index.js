@@ -4,6 +4,8 @@ import { graphql, StaticQuery } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import PostCard from "../components/postCard"
+import App from "../components/map/app";
+
 
 // import "../utils/global.scss"
 import "../utils/normalize.css"
@@ -28,19 +30,20 @@ const BlogIndex = ({ data }, location) => {
           </h2>
         </header>
       )}
-      <div className="post-feed">
-        {posts.map(({ node }) => {
-          postCounter++
-          return (
-            <PostCard
-              key={node.fields.slug}
-              count={postCounter}
-              node={node}
-              postClass={`post`}
-            />
-          )
-        })}
-      </div>
+      <App/>
+      {/*<div className="post-feed">*/}
+      {/*  {posts.map(({ node }) => {*/}
+      {/*    postCounter++*/}
+      {/*    return (*/}
+      {/*      <PostCard*/}
+      {/*        key={node.fields.slug}*/}
+      {/*        count={postCounter}*/}
+      {/*        node={node}*/}
+      {/*        postClass={`post`}*/}
+      {/*      />*/}
+      {/*    )*/}
+      {/*  })}*/}
+      {/*</div>*/}
     </Layout>
   )
 }
