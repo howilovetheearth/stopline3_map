@@ -1,7 +1,9 @@
 import * as React from 'react';
 import {useState} from 'react';
 import {render} from 'react-dom';
+import { List, ListItem } from '@material-ui/core';
 import "./style/app.css";
+import ReactScrollableList from 'react-scrollable-list';
 import MapGL, {
   Popup,
   NavigationControl,
@@ -42,6 +44,11 @@ const scaleControlStyle = {
   padding: '10px'
 };
 
+let listItems = []
+for (let i = 0; i < 50; i++) {
+  listItems.push({ id: i, content: i })
+}
+
 export default function App() {
   const [viewport, setViewport] = useState({
     latitude: 40,
@@ -54,7 +61,30 @@ export default function App() {
 
   return (
     <div className={"test"}>
-      <MapGL
+      <div
+          className={"hi"}
+      >
+      <ReactScrollableList
+      listItems={CITIES.map((city, index) => {
+        return (
+            {
+              id: city.city,
+              content: (<div>
+                  <button>
+                      {city.city}
+                  </button>
+              </div>)
+            }
+        )
+          })
+      }
+      heightOfItem={10}
+      maxItemsToRender={10}
+      style={{ color: '#333' }}
+    />
+    </div>
+  <MapGL
+        className="mapgl"
         {...viewport}
         width="100%"
         height="100%"
@@ -83,7 +113,6 @@ export default function App() {
         <ScaleControl style={scaleControlStyle} />
       </MapGL>
 
-      <ControlPanel />
     </div>
   );
 }

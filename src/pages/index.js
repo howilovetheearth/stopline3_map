@@ -13,8 +13,6 @@ import "../utils/css/screen.css"
 //TODO: switch to staticQuery, get rid of comments, remove unnecessary components, export as draft template
 const BlogIndex = ({ data }, location) => {
   const siteTitle = data.site.siteMetadata.title
-  const posts = data.allMarkdownRemark.edges
-  let postCounter = 0
 
   return (
     <Layout title={siteTitle}>
@@ -22,7 +20,6 @@ const BlogIndex = ({ data }, location) => {
         title="All posts"
         keywords={[`blog`, `gatsby`, `javascript`, `react`]}
       />
-      {/* <Bio /> */}
       {data.site.siteMetadata.description && (
         <header className="page-head">
           <h2 className="page-head-title">
@@ -31,19 +28,6 @@ const BlogIndex = ({ data }, location) => {
         </header>
       )}
       <App/>
-      {/*<div className="post-feed">*/}
-      {/*  {posts.map(({ node }) => {*/}
-      {/*    postCounter++*/}
-      {/*    return (*/}
-      {/*      <PostCard*/}
-      {/*        key={node.fields.slug}*/}
-      {/*        count={postCounter}*/}
-      {/*        node={node}*/}
-      {/*        postClass={`post`}*/}
-      {/*      />*/}
-      {/*    )*/}
-      {/*  })}*/}
-      {/*</div>*/}
     </Layout>
   )
 }
