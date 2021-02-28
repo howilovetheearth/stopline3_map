@@ -7,12 +7,14 @@ function CityInfo(props) {
   return (
     <div>
       <div>
-        {displayName} |{' '}
+        {displayName}
+      </div>
+      <div>
         <a
           target="_new"
           href={`http://en.wikipedia.org/w/index.php?title=Special:Search&search=${displayName}`}
         >
-          Wikipedia
+          Take Action
         </a>
       </div>
       <img width={240} src={info.image} />

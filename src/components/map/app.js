@@ -1,9 +1,10 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {render} from 'react-dom';
 import { List, ListItem } from '@material-ui/core';
 import "./style/app.css";
-import ReactScrollableList from 'react-scrollable-list';
+import { Paper } from '@material-ui/core';
+import Button from '@material-ui/core/button';
 import MapGL, {
   Popup,
   NavigationControl,
@@ -44,79 +45,124 @@ const scaleControlStyle = {
   padding: '10px'
 };
 
-let listItems = []
-for (let i = 0; i < 50; i++) {
-  listItems.push({ id: i, content: i })
+const initialViewport = {
+  latitude: 40,
+  longitude: -100,
+  zoom: 3.5,
+  bearing: 0,
+  pitch: 0
 }
 
 export default function App() {
-  const [viewport, setViewport] = useState({
-    latitude: 40,
-    longitude: -100,
-    zoom: 3.5,
-    bearing: 0,
-    pitch: 0
-  });
+  const [viewport, setViewport] = useState(initialViewport);
   const [popupInfo, setPopupInfo] = useState(null);
+  const [sortedCities, setSortedCities] = useState([]);
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [showMap, setShowMap] = useState(false);
+
+  const updateDimensions = () => {
+    setIsDesktop(window.innerWidth >= 800);
+  }
+
+  const shouldShowMap = isDesktop || showMap;
+  const shouldShowList = isDesktop || !showMap;
+
+  useEffect(() => {
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, [])
+
+  useEffect(() => {
+    setSortedCities(CITIES.sort((cityA, cityB) => {
+      let nameA = cityA.city.toUpperCase(); // ignore upper and lowercase
+      let nameB = cityB.city.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+
+    }))
+  }, [])
 
   return (
-    <div className={"test"}>
-      <div
-          className={"hi"}
-      >
-      <ReactScrollableList
-      listItems={CITIES.map((city, index) => {
-        return (
-            {
-              id: city.city,
-              content: (<div>
-                  <button>
-                      {city.city}
-                  </button>
-              </div>)
-            }
-        )
-          })
-      }
-      heightOfItem={10}
-      maxItemsToRender={10}
-      style={{ color: '#333' }}
-    />
-    </div>
-  <MapGL
-        className="mapgl"
-        {...viewport}
-        width="100%"
-        height="100%"
-        mapStyle="mapbox://styles/mapbox/dark-v9"
-        onViewportChange={setViewport}
-        mapboxApiAccessToken={TOKEN}
-      >
-        <Pins data={CITIES} onClick={setPopupInfo} />
+      <>
+        {isDesktop? undefined:
+            <Button
+                variant="outlined"
+                onClick={() => {setShowMap(!showMap)}}
+            >
+              {!showMap? "Show Map" : "Hide Map"}
+            </Button>  }
+        <div className={"test"}>
+          {shouldShowList?
+              <Paper className="city-list" style={{maxHeight: 500, overflow: 'auto'}}>
+                <List component="nav">
+                  {sortedCities.map((city, index) => {
+                    return (
+                        <ListItem
+                            key={`${city.city}-index`}
+                            button
+                            onClick={() => {
+                              setPopupInfo(city);
+                              setViewport(initialViewport);
+                            }}
+                        >
+                          <div>
+                            <h4>Name of Event</h4>
+                            {city.city}
+                            <div>
+                              <a href={"google.com"} target={"_blank"}>Take Action</a>
+                            </div>
+                          </div>
+                        </ListItem>
+                    )
+                  })
+                  }
+                </List>
+              </Paper>: undefined}
+          {shouldShowMap?
+              <div
+                  className="mapgl"
+              >
+                <MapGL
+                    {...viewport}
+                    width="100%"
+                    height="100%"
+                    mapStyle="mapbox://styles/mapbox/dark-v9"
+                    onViewportChange={setViewport}
+                    mapboxApiAccessToken={TOKEN}
+                >
+                  <Pins data={CITIES} onClick={setPopupInfo} />
 
-        {popupInfo && (
-          <Popup
-            tipSize={5}
-            anchor="top"
-            longitude={popupInfo.longitude}
-            latitude={popupInfo.latitude}
-            closeOnClick={false}
-            onClose={setPopupInfo}
-          >
-            <CityInfo info={popupInfo} />
-          </Popup>
-        )}
+                  {popupInfo && (
+                      <Popup
+                          tipSize={5}
+                          anchor="top"
+                          longitude={popupInfo.longitude}
+                          latitude={popupInfo.latitude}
+                          closeOnClick={false}
+                          onClose={setPopupInfo}
+                      >
+                        <CityInfo info={popupInfo} />
+                      </Popup>
+                  )}
 
-        <GeolocateControl style={geolocateStyle} />
-        <FullscreenControl style={fullscreenControlStyle} />
-        <NavigationControl style={navStyle} />
-        <ScaleControl style={scaleControlStyle} />
-      </MapGL>
-
-    </div>
+                  <GeolocateControl style={geolocateStyle} />
+                  <FullscreenControl style={fullscreenControlStyle} />
+                  <NavigationControl style={navStyle} />
+                  <ScaleControl style={scaleControlStyle} />
+                </MapGL>
+              </div>: undefined}
+        </div>
+      </>
   );
 }
-
 // export function renderToDom(container) {
 //   render(<App />, container);
 // }
