@@ -561,11 +561,11 @@ const indexQuery = graphql`
   }
 `
 
-export default props => (
-  <StaticQuery
-    query={indexQuery}
-    render={data => (
-      <ElementsPage location={props.location} data={data} {...props} />
-    )}
-  />
-)
+// export default props => (
+//   <StaticQuery
+//     query={indexQuery}
+//     render={data => (
+//       <ElementsPage location={props.location} data={data} {...props} />
+//     )}
+//   />
+// )
