@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {useState, useEffect} from 'react';
 import { List, ListItem } from '@material-ui/core';
-import 'mapbox-gl/dist/mapbox-gl.css';
 import "./style/app.css";
 import { Paper } from '@material-ui/core';
 import {Helmet} from 'react-helmet';
