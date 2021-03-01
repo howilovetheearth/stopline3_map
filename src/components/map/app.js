@@ -5,7 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import "./style/app.css";
 import { Paper } from '@material-ui/core';
 import {Helmet} from 'react-helmet';
-import Button from '@material-ui/core/button';
+import { Button } from '@material-ui/core';
 import MapGL, {
   Popup,
   NavigationControl,

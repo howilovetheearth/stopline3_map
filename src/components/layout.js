@@ -24,8 +24,6 @@ const Layout = props => {
               </div>
             </div>
           </a>
-          <nav id="swup" class="site-head-left">
-          </nav>
           <div className="site-head-center">
             <Link className="site-head-logo" to={`/`}>
               {title}
