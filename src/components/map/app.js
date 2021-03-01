@@ -57,8 +57,8 @@ export default function App() {
   const [viewport, setViewport] = useState(initialViewport);
   const [popupInfo, setPopupInfo] = useState(null);
   const [sortedCities, setSortedCities] = useState([]);
-  const [isDesktop, setIsDesktop] = useState(false);
-  const [showMap, setShowMap] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
+  const [showMap, setShowMap] = useState(true);
 
   const updateDimensions = () => {
     setIsDesktop(window.innerWidth >= 800);
