@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 import {render} from 'react-dom';
 import { List, ListItem } from '@material-ui/core';
 import "./style/app.css";
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { Paper } from '@material-ui/core';
 import Button from '@material-ui/core/button';
 import MapGL, {
