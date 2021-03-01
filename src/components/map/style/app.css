@@ -1,3 +1,4 @@
+@import url("node_modules/mapbox-gl/dist/mapbox-gl.css");
 
 .test {
   height: 500px;

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {useState, useEffect} from 'react';
-import {render} from 'react-dom';
 import { List, ListItem } from '@material-ui/core';
-import "./style/app.css";
 import 'mapbox-gl/dist/mapbox-gl.css';
+require("./style/app.css");
 import { Paper } from '@material-ui/core';
+import {Helmet} from 'react-helmet';
 import Button from '@material-ui/core/button';
 import MapGL, {
   Popup,
@@ -93,6 +93,13 @@ export default function App() {
 
   return (
       <>
+        <Helmet>
+          <link
+              rel="stylesheet"
+              href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css"
+              crossorigin=""
+          />
+        </Helmet>
         <h4>
           Want to broadcast an action targeting some bank in your area? Please email <a href={"mailto:howilovetheearth@gmail.com"}>howilovetheearth@gmail.com</a> with details.
         </h4>
