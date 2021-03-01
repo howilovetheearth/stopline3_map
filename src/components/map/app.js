@@ -148,7 +148,7 @@ export default function App() {
                     {...viewport}
                     width="100%"
                     height="100%"
-                    mapStyle="mapbox://styles/mapbox/dark-v9"
+                    mapStyle="mapbox://styles/howilovetheearth/cklq08mlf38sr17qhxyzuzdqk"
                     onViewportChange={setViewport}
                     mapboxApiAccessToken={TOKEN}
                 >
