@@ -2,6 +2,7 @@ import * as React from 'react';
 import {useState, useEffect} from 'react';
 import { List, ListItem } from '@material-ui/core';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import "./style/app.css";
 import { Paper } from '@material-ui/core';
 import {Helmet} from 'react-helmet';
 import Button from '@material-ui/core/button';
@@ -13,7 +14,6 @@ import MapGL, {
   GeolocateControl
 } from 'react-map-gl';
 
-import ControlPanel from './control-panel';
 import Pins from './pins';
 import CityInfo from './city-info';
 
@@ -96,7 +96,6 @@ export default function App() {
           <link
               rel="stylesheet"
               href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css"
-              crossorigin=""
           />
         </Helmet>
         <h4>
