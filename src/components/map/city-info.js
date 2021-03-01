@@ -7,6 +7,12 @@ function CityInfo(props) {
   return (
     <div>
       <div>
+          Add Your Event Here
+      </div>
+      <div>
+          Add Your Place Here
+      </div>
+      <div>
         {displayName}
       </div>
       <div>

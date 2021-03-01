@@ -92,6 +92,9 @@ export default function App() {
 
   return (
       <>
+        <h4>
+          Want to broadcast an action targeting some bank in your area? Please email <a href={"mailto:howilovetheearth@gmail.com"}>howilovetheearth@gmail.com</a> with details.
+        </h4>
         {isDesktop? undefined:
             <Button
                 variant="outlined"
@@ -114,10 +117,15 @@ export default function App() {
                             }}
                         >
                           <div>
-                            <h4>Name of Event</h4>
-                            {city.city}
+                            <h4>Add Your Event Here</h4>
                             <div>
-                              <a href={"google.com"} target={"_blank"}>Take Action</a>
+                              Add your place here.
+                            </div>
+                            <div>
+                              {city.city}
+                            </div>
+                            <div>
+                              <a href={"https://google.com"} target={"_blank"}>Take Action</a>
                             </div>
                           </div>
                         </ListItem>
